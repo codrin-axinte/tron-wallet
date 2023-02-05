@@ -17,3 +17,5 @@ export default async function handler(req, res) {
 
     res.status(200).json(receipt);
 }
+
+// TODO: Research TRC20 transfer https://gist.github.com/andelf/bdd18734d40774a721d0c4cbcec67037
