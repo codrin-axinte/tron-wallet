@@ -4,7 +4,12 @@ const tronWeb = createTron();
 
 export default async function handler(req, res) {
 
-    const {address} = req.query;
+    if (req.method !== 'POST') {
+        res.status(405).send({message: 'Only POST requests allowed'})
+        return
+    }
+
+    const {address} = req.body;
 
     let balance = null;
 

@@ -1,6 +1,7 @@
 import createTron, {setupContract} from "@/lib/tronweb";
 
 
+// TODO: Research TRC20 transfer https://gist.github.com/andelf/bdd18734d40774a721d0c4cbcec67037
 
 export default async function handler(req, res) {
 
@@ -9,12 +10,12 @@ export default async function handler(req, res) {
         return
     }
 
-    const {from, to, amount, privateKey} = req.body;
+    const {from, to, amount, privateKey, contract: contractAddress} = req.body;
 
     let result = null
     const tronWeb = createTron({privateKey});
     try {
-        let contract = await setupContract(tronWeb, from);
+        let contract = await setupContract(tronWeb, from, contractAddress);
         result = await contract.transfer(to, amount).send();
 
         res.status(200).json(result);
