@@ -14,11 +14,11 @@ export default async function handler(req, res) {
     let balance = null;
 
     try {
-        let contract = await setupContract(tronWeb, address);
+        const contract = await setupContract(tronWeb, address);
         const result = await contract.balanceOf(address).call();
         balance = result / 1000000;
     } catch (error) {
-        console.log(error);
+        console.error("Error: ", error, balance);
         res.status(400).json(error);
     }
 
