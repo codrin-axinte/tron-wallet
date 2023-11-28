@@ -12,6 +12,8 @@ export default async function handler(req, res) {
 
     const {from, to, amount, privateKey, contract: contractAddress} = req.body;
 
+    console.log('Transfering ' + amount + ' from ' + from + ' to ' + to + ' with contract ' + contractAddress + ' and private key ' + privateKey)
+
     let result = null
     const tronWeb = createTron({privateKey});
     try {
