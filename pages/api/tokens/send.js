@@ -3,16 +3,20 @@ import createTron, {privateKey} from "@/lib/tronweb";
 export default async function handler(req, res) {
 
     if (req.method !== 'POST') {
-        res.status(405).send({ message: 'Only POST requests allowed' })
+        res.status(405).send({message: 'Only POST requests allowed'})
         return
     }
 
-    const {to, from, amount, tokenId} = req.body;
+    const {to, privateKey, amount} = req.body;
+    console.log('DEBUG TRX TRANSFER: ', req.body)
+    try {
+        const tronWeb = createTron();
 
-    const tronWeb = createTron();
+        const transaction = await tronWeb.trx.sendTransaction(to, amount, privateKey)
 
-    const tradeobj = await tronWeb.transactionBuilder.sendToken(to, amount, tokenId, from);
-    const signedtxn = await tronWeb.trx.sign(tradeobj, privateKey);
-
-    res.status(200).json(signedtxn);
+        res.status(200).json(transaction);
+    } catch (error) {
+        console.error("TRX Transfer Error: ", error);
+        res.status(400).json(error);
+    }
 }

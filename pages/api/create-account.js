@@ -14,7 +14,7 @@ export default async function handler(req, res) {
 
     const builder = await tronWeb.transactionBuilder;
 
-    const transaction = address ? builder.createAccount(address) : builder.createRandom();
+    const transaction = address ? await builder.createAccount(address) : builder.createRandom();
 
     const signedTransaction = await tronWeb.trx.sign(transaction);
 

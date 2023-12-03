@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  wallet:
+    build: .
+    volumes:
+      - .:/app             # Mount the project directory to the /app directory in the container
+      - /app/node_modules  # Use node_modules from the container
+    ports:
+      - "3000:3000"        # Map port 3000 from the container to port 3000 on the host
+    environment:
+      - NODE_ENV=development
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    networks:
+      - sail
+networks:
+  sail:
+    driver: bridge
+    external: true
