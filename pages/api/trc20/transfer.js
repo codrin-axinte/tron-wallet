@@ -11,15 +11,9 @@ export default async function handler(req, res) {
     }
 
     const {from, to, amount, privateKey, contract: contractAddress} = req.body;
-<<<<<<< Updated upstream
 
-    console.log('Transfering ' + amount + ' from ' + from + ' to ' + to + ' with contract ' + contractAddress + ' and private key ' + privateKey)
-
-    let result = null
-    const tronWeb = createTron({privateKey});
-=======
     console.log('DEBUG USDT TRANSFER: ', req.body)
->>>>>>> Stashed changes
+
     try {
         const tronWeb = createTron({privateKey: privateKey});
         let contract = await setupContract(tronWeb, from);
